@@ -13,6 +13,11 @@ data
 *.db-shm
 *.sql
 
+# ...except the migration scripts, which are source. Without this the build
+# context has no schema files, the published assembly embeds none, and the
+# container starts and immediately exits.
+!src/Waterhouse.Api/Migrations/*.sql
+
 # Secrets
 appsettings.Production.json
 appsettings.Local.json

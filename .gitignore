@@ -11,6 +11,12 @@ data/
 *.db-shm
 *.sql
 
+# ...but the migration scripts are SOURCE, not data, and the blanket *.sql rule
+# above silently excluded them. They ship as EmbeddedResource, so a clone
+# without them builds an assembly with no schema and dies on startup with
+# "No migration scripts found as embedded resources".
+!src/Waterhouse.Api/Migrations/*.sql
+
 # Secrets - the legacy repo committed .env with live DB and Gmail credentials.
 # Use `dotnet user-secrets` in development and environment variables in production.
 appsettings.Production.json

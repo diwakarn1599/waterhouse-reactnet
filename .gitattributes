@@ -1,0 +1,23 @@
+# Normalise line endings in the repository.
+* text=auto
+
+# Migration scripts are checksummed at startup and the recorded hash is compared
+# on every boot. The Migrator normalises CRLF to LF before hashing, so a
+# line-ending flip cannot actually break it - but pinning LF keeps the files
+# byte-identical between a Windows checkout and a Linux container build, which
+# makes the image reproducible.
+*.sql text eol=lf
+
+# Shell scripts must be LF or they fail to execute inside a container.
+*.sh text eol=lf
+Dockerfile text eol=lf
+
+# PowerShell is run on Windows.
+*.ps1 text eol=crlf
+
+# Binary - never touch.
+*.db binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary
