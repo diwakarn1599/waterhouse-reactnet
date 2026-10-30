@@ -1,0 +1,29 @@
+# Build output and dependencies — rebuilt inside the image.
+**/bin
+**/obj
+**/node_modules
+src/Waterhouse.Api/wwwroot
+publish
+
+# Local data. Must never enter an image: contains real customer names,
+# phone numbers and balances.
+data
+*.db
+*.db-wal
+*.db-shm
+*.sql
+
+# Secrets
+appsettings.Production.json
+appsettings.Local.json
+.env
+
+# Noise
+.git
+.vs
+.vscode
+.idea
+docs
+scripts
+tools
+*.md

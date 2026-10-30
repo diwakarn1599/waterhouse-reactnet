@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* Counter machines are often old and run at 1366x768. Base sizing favours
+   legibility and large hit targets over density. */
+@theme {
+  --color-brand-50:  #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-900: #134e4a;
+}
+
+html, body, #root { height: 100%; }
+body { background: #f8fafc; color: #0f172a; }
+
+/* Tabular figures keep money columns aligned as digits change. */
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------------------
+   Dispensing slip (KOT) printing.
+
+   Item, cap, quantity, rate - nothing else. The slip is an internal handover
+   from cashier to dispenser, not a bill, so every rule, fill and heading that
+   a receipt would carry is ink spent on nobody.
+
+   Sized for an 80mm thermal roll. Everything except the slip is hidden so the
+   browser never paginates the app shell behind it.
+   --------------------------------------------------------------------------- */
+@media print {
+  body * { visibility: hidden; }
+  #receipt, #receipt * { visibility: visible; }
+
+  #receipt {
+    position: absolute; left: 0; top: 0;
+    width: 74mm; margin: 0; padding: 0;
+    font-family: ui-monospace, "Courier New", monospace;
+    /* 13px rather than 11px. The slip is read at arm's length while handling
+       stock, and it is only two or three lines long - legibility costs nothing
+       when there is this little to print. */
+    font-size: 13px;
+    line-height: 1.25;
+    color: #000;
+  }
+
+  /* Strip every border, fill and shadow. A dashed separator is still ink, and
+     on a slip this short the rules would cost more than the content. */
+  #receipt * {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #receipt table { width: 100%; border-collapse: collapse; }
+  #receipt th, #receipt td { padding: 0 2mm 0 0; }
+  #receipt th:last-child, #receipt td:last-child { padding-right: 0; }
+
+  /* `auto` height so the roll advances only as far as the content goes: no
+     trailing blank paper on every slip. */
+  @page { size: 80mm auto; margin: 2mm; }
+}

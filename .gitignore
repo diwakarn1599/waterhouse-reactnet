@@ -1,0 +1,24 @@
+# Build output
+bin/
+obj/
+node_modules/
+src/Waterhouse.Api/wwwroot/
+
+# Local data - NEVER commit. Contains real customer names, phones and balances.
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sql
+
+# Secrets - the legacy repo committed .env with live DB and Gmail credentials.
+# Use `dotnet user-secrets` in development and environment variables in production.
+appsettings.Production.json
+appsettings.Local.json
+.env
+
+# Editor
+.vs/
+.vscode/
+.idea/
+*.user

@@ -1,0 +1,11 @@
+{
+  "name": "waterhouse-import",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "One-time migration from the legacy MySQL dump into SQLite.",
+  "scripts": {
+    "import": "node --no-warnings import.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
